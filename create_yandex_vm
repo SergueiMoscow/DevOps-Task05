@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Ubuntu 22.04
+# export YC_IMAGE_ID="fd8tvc3529h2cpjvpkr5"
+# Наш образ с докером
+export YC_IMAGE_ID="fd8ejuub2u007oflcroc"
+export YC_SUBNET_ID="e9bsl2o51eg78tjo00vm"
+export YC_ZONE="ru-central1-a"
+
+declare -A instances=(
+  ["manager-1"]="manager-1"
+  ["worker-1"]="worker-1"
+  ["worker-2"]="worker-2"
+)
+
+for name in "${!instances[@]}"; do
+  yc compute instance create \
+    --name "$name" \
+    --hostname "${instances[$name]}" \
+    --zone=$YC_ZONE \
+    --create-boot-disk size=10GB,image-id=$YC_IMAGE_ID \
+    --preemptible \
+    --cores=2 \
+    --memory=2G \
+    --core-fraction=20 \
+    --network-interface subnet-id=$YC_SUBNET_ID,ipv4-address=auto,nat-ip-version=ipv4 \
+    --ssh-key ~/.ssh/id_ed25519.pub
+done

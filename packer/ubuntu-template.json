@@ -1,0 +1,31 @@
+{
+    "variables": {
+        "yc_token": "",
+        "yc_folder": "",
+        "yc_subnet": ""
+    },
+
+    "builders": [
+      {
+        "type": "yandex",
+        "token": "{{user `yc_token`}}",
+        "folder_id": "{{user `yc_folder`}}",
+        "source_image_family": "ubuntu-2204-lts",
+        "image_name": "ubuntu-with-docker",
+        "ssh_username": "ubuntu",
+        "subnet_id": "{{user `yc_subnet`}}",
+        "disk_type": "network-ssd",
+        "use_ipv4_nat": true,
+        "zone": "ru-central1-a"
+      }
+    ],
+    "provisioners": [
+      {
+        "type": "shell",
+        "inline": [
+          "sudo apt-get update",
+          "curl -sSL https://get.docker.com/ | sudo sh"
+        ]
+      }
+    ]
+}

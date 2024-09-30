@@ -1,0 +1,10 @@
+[nodes:children]
+manager
+worker
+
+[manager]
+84.201.172.130 ansible_user=yc-user
+
+[worker]
+89.169.149.77 ansible_user=yc-user
+89.169.159.149 ansible_user=yc-user

@@ -1,0 +1,6 @@
+{
+    "yc_token": "Your Yandex token",
+    "yc_folder": "Your Yandex folder id",
+    "yc_subnet": "Yandex subnet id",
+    "yc_zone": "ru-central1-a"
+}
